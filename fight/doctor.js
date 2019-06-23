@@ -16,6 +16,7 @@ Doctor.prototype.heal = function (unit) {
     let healthAfter = unit.getHealth();
 
     unit.earnExperience(250);
+    this.earnExperience(250);//xp to doc as well
 
     return healthAfter - healthBefore;
 }
