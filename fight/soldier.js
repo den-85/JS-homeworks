@@ -2,20 +2,16 @@ const Unit = require('./unit');
 
 function Soldier() {
     Unit.apply(this, arguments);
-    this.attackPower = 15;
+    this._attackPower = 15;
 }
 Soldier.prototype = new Unit();
 
 Soldier.prototype.handAttack = function(unit){
 
-    let bonusAttack = (this.level > 1) ? (this.level * 0.1) : 0;
-    let healthBefore = unit.getHealth();
-    unit.takeDamage(this.attackPower + bonusAttack);
-    let healthAfter = unit.getHealth();
-
-    this.earnExperience(250);
-
-    return healthBefore - healthAfter;
+    let bonusAttack = (this._level > 1) ? (this._level * 0.1) : 0;
+    unit.takeDamage(this._attackPower + bonusAttack);
+    this._earnExperience(250);
+    return this._attackPower + bonusAttack;
 }
 
 module.exports = Soldier;
