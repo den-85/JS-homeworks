@@ -6,6 +6,7 @@ doc = new Doctor('Greg House');
 soldier = new Soldier('Jackie Chan');
 heavySoldier = new Heavy('John Wick');
 
+
 let round = 1, attacker, defender, looser, damage;
 while(heavySoldier.isAlive() && soldier.isAlive()){
 
@@ -17,22 +18,24 @@ while(heavySoldier.isAlive() && soldier.isAlive()){
         defender = soldier;
     }
 
-    console.log("\n>>>>Round " + round + ":");
-    console.log("[Attacker stats: name " + attacker.getName() + ", health " + attacker.getHealth() + ", level " + attacker.getLevel()+", xp = "+attacker.getXP()+"]");
-    console.log("[Defender stats: name " + defender.getName() + ", health " + defender.getHealth() + ", level " + defender.getLevel()+", xp = "+defender.getXP()+"]");
+    console.log("\n>>>> Round " + round + ":");
+    console.log("[Attacker stats: name " + attacker.getName() + ", health " + attacker.getHealth().toFixed(2) +
+        ", level " + attacker.getLevel()+", xp = "+attacker.getXP().toFixed(2)+"]");
+    console.log("[Defender stats: name " + defender.getName() + ", health " + defender.getHealth().toFixed(2) +
+        ", level " + defender.getLevel()+", xp = "+defender.getXP().toFixed(2)+"]");
 
     if(round%3 === 0){
         looser = attacker.getHealth() < defender.getHealth() ? attacker: defender;
-        console.log('Medic ' + doc.getName() + ' healed '+looser.getName()+' for ' + doc.heal(looser) + " hp");
+        console.log('+ Medic ' + doc.getName() + ' healed '+looser.getName()+' for ' + doc.heal(looser).toFixed(2) + " hp");
     }
 
-    if (attacker.hasOwnProperty('attackPower')) {
-        damage = attacker.handAttack(defender);
-    }else{
+    if (typeof attacker.machineGunAttack === "function") {
         damage = attacker.machineGunAttack(defender, attacker.getLevel());
+    }else{
+        damage = attacker.handAttack(defender);
     }
 
-    console.log('\n'+attacker.getName() + ' attacked '+defender.getName()+' and applied damage ' + damage + ' hp');
+    console.log('\n> '+attacker.getName() + ' attacked '+defender.getName()+' and applied ' + damage.toFixed(2) + ' hp damage');
     round++;
 }
 let winnerName = heavySoldier.isAlive()? heavySoldier.getName() : soldier.getName();
